@@ -32,12 +32,26 @@
       "target": [
         {
           "target": "msi",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
+      ],
+      "signAndEditExecutable": false,
+      "signExts": [
+        "!msi",
+        "!exe",
+        "!dll"
       ]
     },
     "msi": {
-      "perMachine": false
-    }
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "toolsets": {
+      "winCodeSign": "1.1.0"
+    },
+    "msiProjectCreated": "build/patch-msi-project.js"
   }
 }

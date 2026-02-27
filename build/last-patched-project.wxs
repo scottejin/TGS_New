@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <!-- https://blogs.msdn.microsoft.com/gremlininthemachine/2006/12/05/msi-wix-and-unicode/ -->
+  <Product Id="*" Name="myTGS Desktop" UpgradeCode="7C0F43AD-2786-5922-A26F-E0B05CF18B68" Version="0.1.0.0" Language="1033" Codepage="65001" Manufacturer="TGS">
+    <Package Compressed="yes" InstallerVersion="500"/>
+
+    <Condition Message="Windows 7 and above is required"><![CDATA[Installed OR VersionNT >= 601]]></Condition>
+
+    <!--
+    AllowSameVersionUpgrades:
+      When set to no (the default), installing a product with the same version and upgrade code (but different product code) is allowed and treated by MSI as two products.
+      When set to yes, WiX sets the msidbUpgradeAttributesVersionMaxInclusive attribute, which tells MSI to treat a product with the same version as a major upgrade.
+
+      So, AllowSameVersionUpgrades="yes" allows to build and test MSI with the same version, and previously installed app will be removed.
+    -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage='A newer version of "[ProductName]" is already installed.'/>
+    <MediaTemplate CompressionLevel="high" EmbedCab="yes"/>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONFOLDER"/>
+    <Property Id="ApplicationFolderName" Value="mytgs-desktop-prototype"/>
+    <Property Id="WixAppFolder" Value="WixPerUserFolder"/>
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1"/>
+
+    
+    
+      <CustomAction Id="runAfterFinish" FileKey="mainExecutable" ExeCommand="" Execute="immediate" Impersonate="yes" Return="asyncNoWait"/>
+      
+        <!-- https://stackoverflow.com/questions/1871531/launch-after-install-with-no-ui -->
+        <InstallExecuteSequence>
+          <Custom Action="runAfterFinish" After="InstallFinalize">NOT Installed AND UILevel >= 4</Custom>
+        </InstallExecuteSequence>
+          
+    
+      <Property Id="ALLUSERS" Secure="yes" Value="2"/>
+        <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1"/>
+
+    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Directory Id="APPLICATIONFOLDER" Name="myTGS Desktop"/>
+      </Directory>
+<!-- Start menu link -->
+      
+      <Directory Id="ProgramMenuFolder"/>
+      
+    </Directory>
+
+    <!-- Files -->
+    <Feature Id="ProductFeature" Absent="disallow">
+      <ComponentGroupRef Id="ProductComponents"/>
+    </Feature>
+
+    <Directory Id="dVbVYx..CDm4A5Zk7nlXZOw" Name="APPLICATIONFOLDER:\resources\"/>
+    <Directory Id="dqaJlpbJD_GLvWWyfLwOfXg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\"/>
+    <Directory Id="dKSf4olilC7swRfORskzjfw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\"/>
+    <Directory Id="dF450mB_jGEW91FQvS4XEeg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\"/>
+    <Directory Id="d1NlKh2uxZE3K6mMHSo9Gdw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\assets\"/>
+    <Directory Id="d5xS6C1Fchn_OPhxNhM9_Hg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\"/>
+    <Directory Id="dxDc9o_XXQdaW7xM4zcHXQw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\assets\"/>
+    <Directory Id="diT5f27Q373NnKFgY_HFAfQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\htmlReport\"/>
+    <Directory Id="dDyU7hFeUKJU0GDhbvSeuqw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\utilsBundleImpl\"/>
+    <Directory Id="dZr8gu9cdG3S4wBBuKWuilw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\"/>
+    <Directory Id="dT1wjj__jJZ6mnYMO67GI7w" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\"/>
+    <Directory Id="dcHBSqD28Msm8jZCIEzJ7WQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\"/>
+    <Directory Id="dawIzphv7lZfCj1gUu7hqCA" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\third_party\"/>
+    <Directory Id="davndv8xwINomG1RD6MBesg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\"/>
+    <Directory Id="dAvNAfR.bpQqmQWNS_x8k7w" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\"/>
+    <Directory Id="d38HtVdwEuol0fNwQHbRX3g" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\"/>
+    <Directory Id="dJC754dkKg9rldTvyiiEgug" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\image_tools\"/>
+    <Directory Id="dOFb7CUrDEGiIgNrgtM4VtQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\viewer\"/>
+    <Directory Id="djgy7O7bp.6GgMxSHEjPCtw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\recorder\"/>
+    <Directory Id="d4AXOVAwrGkRRWZ34wFVeIQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\registry\"/>
+    <Directory Id="d04JtaMH2.6xOiv6Hc5oX2g" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\"/>
+    <Directory Id="dS5qDmp0EQQrlTQXvUpzDJA" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\har\"/>
+    <Directory Id="dmejLU2iS7HWnkBe4BZtqDg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\"/>
+    <Directory Id="dD.0BHu2MO6RdymCYekd2FQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\electron\"/>
+    <Directory Id="dqIGA8FfW7jOux6n8nni8mQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\"/>
+    <Directory Id="dvmJf3hMEZ.PHv8mStZbzcg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\"/>
+    <Directory Id="dsSP9yaTTGrXu8VIorG0s_g" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\"/>
+    <Directory Id="dcAfX.H54vQf3Zepr6tUVNA" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\"/>
+    <Directory Id="dTFHM8Y21TDnhC7Ieuivjug" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\"/>
+    <Directory Id="dX3YJUqHVwVvnZZzgqstKfA" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\android\"/>
+    <Directory Id="d.nzrEm5WB0nenYgN61LXWw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\"/>
+    <Directory Id="dbIbdBko3E6EOWui4t9nYoQ" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\remote\"/>
+    <Directory Id="d4SEAcwdoRgnOM6NkYdJw4A" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\protocol\"/>
+    <Directory Id="d16TvHHrLlMDnkdTtTM4Qgg" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\mcpBundleImpl\"/>
+    <Directory Id="dKZH1PDOUsXHC_CO1Hzd9ng" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\"/>
+    <Directory Id="d_eJpkDqoq2yCTA75x85fdw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\"/>
+    <Directory Id="dlAKNHU.JC51wAyLTPHxcpw" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\lib\cli\"/>
+    <Directory Id="dYBkB7IQLwgTCpV_6HOdL2g" Name="APPLICATIONFOLDER:\resources\app.asar.unpacked\node_modules\playwright-core\bin\"/>
+    <Directory Id="dXnSQeeWu218k5_DQODW_Hw" Name="APPLICATIONFOLDER:\locales\"/>
+
+    <ComponentGroup Id="ProductComponents" Directory="APPLICATIONFOLDER">
+      <Component>
+        <File Name="LICENSE.electron.txt" Source="$(var.appDir)\LICENSE.electron.txt" ReadOnly="yes" KeyPath="yes" Id="LICENSE.electron.txt_f"/>
+      </Component>
+      <Component>
+        <File Name="LICENSES.chromium.html" Source="$(var.appDir)\LICENSES.chromium.html" ReadOnly="yes" KeyPath="yes" Id="LICENSES.chromium.html_f"/>
+      </Component>
+      <Component>
+        <File Name="chrome_100_percent.pak" Source="$(var.appDir)\chrome_100_percent.pak" ReadOnly="yes" KeyPath="yes" Id="chrome_100_percent.pak_f"/>
+      </Component>
+      <Component>
+        <File Name="chrome_200_percent.pak" Source="$(var.appDir)\chrome_200_percent.pak" ReadOnly="yes" KeyPath="yes" Id="chrome_200_percent.pak_f"/>
+      </Component>
+      <Component>
+        <File Name="d3dcompiler_47.dll" Source="$(var.appDir)\d3dcompiler_47.dll" ReadOnly="yes" KeyPath="yes" Id="d3dcompiler_47.dll_f"/>
+      </Component>
+      <Component>
+        <File Name="ffmpeg.dll" Source="$(var.appDir)\ffmpeg.dll" ReadOnly="yes" KeyPath="yes" Id="ffmpeg.dll_f"/>
+      </Component>
+      <Component>
+        <File Name="icudtl.dat" Source="$(var.appDir)\icudtl.dat" ReadOnly="yes" KeyPath="yes" Id="icudtl.dat_f"/>
+      </Component>
+      <Component>
+        <File Name="libEGL.dll" Source="$(var.appDir)\libEGL.dll" ReadOnly="yes" KeyPath="yes" Id="libEGL.dll_f"/>
+      </Component>
+      <Component>
+        <File Name="libGLESv2.dll" Source="$(var.appDir)\libGLESv2.dll" ReadOnly="yes" KeyPath="yes" Id="libGLESv2.dll_f"/>
+      </Component>
+      <Component>
+        <File Name="myTGS Desktop.exe" Source="$(var.appDir)\myTGS Desktop.exe" ReadOnly="yes" KeyPath="yes" Id="mainExecutable">
+        <Shortcut Id="desktopShortcut" Directory="DesktopFolder" Name="myTGS Desktop" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes"/>
+        <Shortcut Id="startMenuShortcut" Directory="ProgramMenuFolder" Name="myTGS Desktop" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes">
+          <ShortcutProperty Key="System.AppUserModel.ID" Value="com.tgs.mytgs-desktop-prototype"/>
+        </Shortcut>
+      </File>
+      </Component>
+      <Component>
+        <File Name="resources.pak" Source="$(var.appDir)\resources.pak" ReadOnly="yes" KeyPath="yes" Id="resources.pak_f"/>
+      </Component>
+      <Component>
+        <File Name="snapshot_blob.bin" Source="$(var.appDir)\snapshot_blob.bin" ReadOnly="yes" KeyPath="yes" Id="snapshot_blob.bin_f"/>
+      </Component>
+      <Component>
+        <File Name="v8_context_snapshot.bin" Source="$(var.appDir)\v8_context_snapshot.bin" ReadOnly="yes" KeyPath="yes" Id="v8_context_snapshot.bin_f"/>
+      </Component>
+      <Component>
+        <File Name="vk_swiftshader.dll" Source="$(var.appDir)\vk_swiftshader.dll" ReadOnly="yes" KeyPath="yes" Id="vk_swiftshader.dll_f"/>
+      </Component>
+      <Component>
+        <File Name="vk_swiftshader_icd.json" Source="$(var.appDir)\vk_swiftshader_icd.json" ReadOnly="yes" KeyPath="yes" Id="vk_swiftshader_icd.json_f"/>
+      </Component>
+      <Component>
+        <File Name="vulkan-1.dll" Source="$(var.appDir)\vulkan-1.dll" ReadOnly="yes" KeyPath="yes" Id="vulkan-1.dll_f"/>
+      </Component>
+      <Component Directory="dVbVYx..CDm4A5Zk7nlXZOw">
+        <File Name="app.asar" Source="$(var.appDir)\resources\app.asar" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="LICENSE" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\LICENSE" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="NOTICE" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\NOTICE" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="ThirdPartyNotices.txt" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\ThirdPartyNotices.txt" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="browsers.json" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\browsers.json" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="cli.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\cli.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="index.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\index.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="index.mjs" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\index.mjs" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqaJlpbJD_GLvWWyfLwOfXg">
+        <File Name="package.json" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\package.json" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="androidServerImpl.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\androidServerImpl.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="browserServerImpl.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\browserServerImpl.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="inProcessFactory.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\inProcessFactory.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="inprocess.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\inprocess.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="mcpBundle.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\mcpBundle.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="outofprocess.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\outofprocess.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="utils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="utilsBundle.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utilsBundle.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="zipBundle.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\zipBundle.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKSf4olilC7swRfORskzjfw">
+        <File Name="zipBundleImpl.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\zipBundleImpl.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="codeMirrorModule.DYBRYzYX.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\codeMirrorModule.DYBRYzYX.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="codicon.DCmgc-ay.ttf" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\codicon.DCmgc-ay.ttf" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="defaultSettingsView.7ch9cixO.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\defaultSettingsView.7ch9cixO.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="index.BDwrLSGN.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\index.BDwrLSGN.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="index.BVu7tZDe.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\index.BVu7tZDe.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="index.html" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\index.html" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="manifest.webmanifest" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\manifest.webmanifest" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="playwright-logo.svg" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\playwright-logo.svg" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="snapshot.html" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\snapshot.html" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="sw.bundle.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\sw.bundle.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="uiMode.Btcz36p_.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\uiMode.Btcz36p_.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="uiMode.CQJ9SCIQ.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\uiMode.CQJ9SCIQ.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="uiMode.html" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\uiMode.html" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dF450mB_jGEW91FQvS4XEeg">
+        <File Name="xtermModule.DYP7pi_n.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\xtermModule.DYP7pi_n.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d1NlKh2uxZE3K6mMHSo9Gdw">
+        <File Name="codeMirrorModule-a5XoALAZ.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\assets\codeMirrorModule-a5XoALAZ.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d1NlKh2uxZE3K6mMHSo9Gdw">
+        <File Name="defaultSettingsView-CJSZINFr.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\assets\defaultSettingsView-CJSZINFr.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d1NlKh2uxZE3K6mMHSo9Gdw">
+        <File Name="xtermModule-CsJ4vdCR.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\traceViewer\assets\xtermModule-CsJ4vdCR.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d5xS6C1Fchn_OPhxNhM9_Hg">
+        <File Name="index.html" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\index.html" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d5xS6C1Fchn_OPhxNhM9_Hg">
+        <File Name="playwright-logo.svg" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\playwright-logo.svg" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dxDc9o_XXQdaW7xM4zcHXQw">
+        <File Name="codeMirrorModule-DYBRYzYX.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\assets\codeMirrorModule-DYBRYzYX.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dxDc9o_XXQdaW7xM4zcHXQw">
+        <File Name="codeMirrorModule-DadYNm1I.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\assets\codeMirrorModule-DadYNm1I.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dxDc9o_XXQdaW7xM4zcHXQw">
+        <File Name="codicon-DCmgc-ay.ttf" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\assets\codicon-DCmgc-ay.ttf" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dxDc9o_XXQdaW7xM4zcHXQw">
+        <File Name="index-BSjZa4pk.css" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\assets\index-BSjZa4pk.css" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dxDc9o_XXQdaW7xM4zcHXQw">
+        <File Name="index-BhTWtUlo.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\recorder\assets\index-BhTWtUlo.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="diT5f27Q373NnKFgY_HFAfQ">
+        <File Name="index.html" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\vite\htmlReport\index.html" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dDyU7hFeUKJU0GDhbvSeuqw">
+        <File Name="index.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utilsBundleImpl\index.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dDyU7hFeUKJU0GDhbvSeuqw">
+        <File Name="xdg-open" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utilsBundleImpl\xdg-open" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="ariaSnapshot.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\ariaSnapshot.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="assert.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\assert.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="colors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\colors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="cssParser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\cssParser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="cssTokenizer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\cssTokenizer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="headers.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\headers.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="locatorGenerators.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\locatorGenerators.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="locatorParser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\locatorParser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="locatorUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\locatorUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="lruCache.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\lruCache.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="manualPromise.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\manualPromise.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="mimeType.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\mimeType.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="multimap.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\multimap.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="protocolFormatter.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\protocolFormatter.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="protocolMetainfo.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\protocolMetainfo.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="rtti.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\rtti.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="selectorParser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\selectorParser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="semaphore.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\semaphore.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="stackTrace.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\stackTrace.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="stringUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\stringUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="time.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\time.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="timeoutRunner.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\timeoutRunner.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="traceUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\traceUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="types.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\types.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="urlMatch.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\urlMatch.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="utilityScriptSerializers.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\utilityScriptSerializers.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dZr8gu9cdG3S4wBBuKWuilw">
+        <File Name="yaml.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\yaml.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="entries.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\entries.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="snapshotRenderer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\snapshotRenderer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="snapshotServer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\snapshotServer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="snapshotStorage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\snapshotStorage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="traceLoader.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\traceLoader.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="traceModel.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\traceModel.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dT1wjj__jJZ6mnYMO67GI7w">
+        <File Name="traceModernizer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\traceModernizer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcHBSqD28Msm8jZCIEzJ7WQ">
+        <File Name="traceV3.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\traceV3.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcHBSqD28Msm8jZCIEzJ7WQ">
+        <File Name="traceV4.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\traceV4.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcHBSqD28Msm8jZCIEzJ7WQ">
+        <File Name="traceV5.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\traceV5.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcHBSqD28Msm8jZCIEzJ7WQ">
+        <File Name="traceV6.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\traceV6.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcHBSqD28Msm8jZCIEzJ7WQ">
+        <File Name="traceV7.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\traceV7.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcHBSqD28Msm8jZCIEzJ7WQ">
+        <File Name="traceV8.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\utils\isomorphic\trace\versions\traceV8.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dawIzphv7lZfCj1gUu7hqCA">
+        <File Name="pixelmatch.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\third_party\pixelmatch.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="artifact.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\artifact.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="browser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\browser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="browserContext.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\browserContext.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="browserType.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\browserType.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="callLog.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\callLog.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="clock.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\clock.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="console.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\console.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="cookieStore.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\cookieStore.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="debugController.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\debugController.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="debugger.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\debugger.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="deviceDescriptors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\deviceDescriptors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="deviceDescriptorsSource.json" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\deviceDescriptorsSource.json" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="dialog.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dialog.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="dom.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dom.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="download.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\download.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="errors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\errors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="fetch.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\fetch.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="fileChooser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\fileChooser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="fileUploadUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\fileUploadUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="formData.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\formData.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="frameSelectors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\frameSelectors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="frames.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\frames.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="harBackend.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\harBackend.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="helper.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\helper.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="index.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\index.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="input.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\input.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="instrumentation.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\instrumentation.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="javascript.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\javascript.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="launchApp.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\launchApp.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="localUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\localUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="macEditingCommands.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\macEditingCommands.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="network.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\network.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="page.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\page.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="pipeTransport.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\pipeTransport.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="playwright.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\playwright.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="progress.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\progress.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="protocolError.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\protocolError.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="recorder.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="screencast.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\screencast.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="screenshotter.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\screenshotter.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="selectors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\selectors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="socksClientCertificatesInterceptor.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\socksClientCertificatesInterceptor.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="socksInterceptor.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\socksInterceptor.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="transport.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\transport.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="types.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\types.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="usKeyboardLayout.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\usKeyboardLayout.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="davndv8xwINomG1RD6MBesg">
+        <File Name="videoRecorder.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\videoRecorder.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="protocol.d.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\protocol.d.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="webkit.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\webkit.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkBrowser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkBrowser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkConnection.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkConnection.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkExecutionContext.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkExecutionContext.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkInput.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkInput.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkInterceptableRequest.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkInterceptableRequest.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkPage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkPage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkProvisionalPage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkProvisionalPage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dAvNAfR.bpQqmQWNS_x8k7w">
+        <File Name="wkWorkers.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\webkit\wkWorkers.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="ascii.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\ascii.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="comparators.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\comparators.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="crypto.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\crypto.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="debug.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\debug.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="debugLogger.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\debugLogger.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="env.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\env.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="eventsHelper.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\eventsHelper.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="expectUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\expectUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="fileUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\fileUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="happyEyeballs.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\happyEyeballs.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="hostPlatform.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\hostPlatform.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="httpServer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\httpServer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="imageUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\imageUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="linuxUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\linuxUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="network.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\network.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="nodePlatform.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\nodePlatform.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="pipeTransport.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\pipeTransport.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="processLauncher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\processLauncher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="profiler.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\profiler.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="socksProxy.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\socksProxy.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="spawnAsync.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\spawnAsync.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="task.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\task.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="userAgent.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\userAgent.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="wsServer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\wsServer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="zipFile.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\zipFile.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d38HtVdwEuol0fNwQHbRX3g">
+        <File Name="zones.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\zones.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dJC754dkKg9rldTvyiiEgug">
+        <File Name="colorUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\image_tools\colorUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dJC754dkKg9rldTvyiiEgug">
+        <File Name="compare.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\image_tools\compare.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dJC754dkKg9rldTvyiiEgug">
+        <File Name="imageChannel.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\image_tools\imageChannel.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dJC754dkKg9rldTvyiiEgug">
+        <File Name="stats.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\utils\image_tools\stats.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dOFb7CUrDEGiIgNrgtM4VtQ">
+        <File Name="traceParser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\viewer\traceParser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dOFb7CUrDEGiIgNrgtM4VtQ">
+        <File Name="traceViewer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\viewer\traceViewer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="djgy7O7bp.6GgMxSHEjPCtw">
+        <File Name="snapshotter.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\recorder\snapshotter.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="djgy7O7bp.6GgMxSHEjPCtw">
+        <File Name="snapshotterInjected.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\recorder\snapshotterInjected.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="djgy7O7bp.6GgMxSHEjPCtw">
+        <File Name="tracing.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\trace\recorder\tracing.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4AXOVAwrGkRRWZ34wFVeIQ">
+        <File Name="browserFetcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\registry\browserFetcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4AXOVAwrGkRRWZ34wFVeIQ">
+        <File Name="dependencies.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\registry\dependencies.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4AXOVAwrGkRRWZ34wFVeIQ">
+        <File Name="index.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\registry\index.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4AXOVAwrGkRRWZ34wFVeIQ">
+        <File Name="nativeDeps.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\registry\nativeDeps.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4AXOVAwrGkRRWZ34wFVeIQ">
+        <File Name="oopDownloadBrowserMain.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\registry\oopDownloadBrowserMain.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d04JtaMH2.6xOiv6Hc5oX2g">
+        <File Name="chat.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\chat.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d04JtaMH2.6xOiv6Hc5oX2g">
+        <File Name="recorderApp.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\recorderApp.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d04JtaMH2.6xOiv6Hc5oX2g">
+        <File Name="recorderRunner.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\recorderRunner.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d04JtaMH2.6xOiv6Hc5oX2g">
+        <File Name="recorderSignalProcessor.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\recorderSignalProcessor.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d04JtaMH2.6xOiv6Hc5oX2g">
+        <File Name="recorderUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\recorderUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d04JtaMH2.6xOiv6Hc5oX2g">
+        <File Name="throttledFile.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\recorder\throttledFile.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dS5qDmp0EQQrlTQXvUpzDJA">
+        <File Name="harRecorder.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\har\harRecorder.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dS5qDmp0EQQrlTQXvUpzDJA">
+        <File Name="harTracer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\har\harTracer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="ffBrowser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\ffBrowser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="ffConnection.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\ffConnection.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="ffExecutionContext.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\ffExecutionContext.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="ffInput.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\ffInput.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="ffNetworkManager.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\ffNetworkManager.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="ffPage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\ffPage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="firefox.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\firefox.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dmejLU2iS7HWnkBe4BZtqDg">
+        <File Name="protocol.d.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\firefox\protocol.d.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dD.0BHu2MO6RdymCYekd2FQ">
+        <File Name="electron.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\electron\electron.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dD.0BHu2MO6RdymCYekd2FQ">
+        <File Name="loader.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\electron\loader.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="androidDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\androidDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="artifactDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\artifactDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="browserContextDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\browserContextDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="browserDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\browserDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="browserTypeDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\browserTypeDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="cdpSessionDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\cdpSessionDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="debugControllerDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\debugControllerDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="dialogDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\dialogDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="dispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\dispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="electronDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\electronDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="elementHandlerDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\elementHandlerDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="frameDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\frameDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="jsHandleDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\jsHandleDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="jsonPipeDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\jsonPipeDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="localUtilsDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\localUtilsDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="networkDispatchers.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\networkDispatchers.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="pageAgentDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\pageAgentDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="pageDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\pageDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="playwrightDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\playwrightDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="streamDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\streamDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="tracingDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\tracingDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="webSocketRouteDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\webSocketRouteDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dqIGA8FfW7jOux6n8nni8mQ">
+        <File Name="writableStreamDispatcher.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\dispatchers\writableStreamDispatcher.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="csharp.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\csharp.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="java.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\java.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="javascript.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\javascript.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="jsonl.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\jsonl.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="language.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\language.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="languages.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\languages.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="python.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\python.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dvmJf3hMEZ.PHv8mStZbzcg">
+        <File Name="types.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\codegen\types.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="appIcon.png" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\appIcon.png" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="chromium.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\chromium.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="chromiumSwitches.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\chromiumSwitches.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crBrowser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crBrowser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crConnection.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crConnection.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crCoverage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crCoverage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crDevTools.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crDevTools.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crDragDrop.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crDragDrop.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crExecutionContext.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crExecutionContext.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crInput.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crInput.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crNetworkManager.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crNetworkManager.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crPage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crPage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crPdf.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crPdf.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crProtocolHelper.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crProtocolHelper.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="crServiceWorker.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\crServiceWorker.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="defaultFontFamilies.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\defaultFontFamilies.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dsSP9yaTTGrXu8VIorG0s_g">
+        <File Name="protocol.d.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\chromium\protocol.d.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiBrowser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiBrowser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiChromium.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiChromium.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiConnection.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiConnection.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiDeserializer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiDeserializer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiExecutionContext.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiExecutionContext.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiFirefox.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiFirefox.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiInput.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiInput.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiNetworkManager.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiNetworkManager.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiOverCdp.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiOverCdp.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiPage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiPage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dcAfX.H54vQf3Zepr6tUVNA">
+        <File Name="bidiPdf.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\bidiPdf.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="bidiCommands.d.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\bidiCommands.d.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="bidiKeyboard.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\bidiKeyboard.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="bidiProtocol.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\bidiProtocol.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="bidiProtocolCore.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\bidiProtocolCore.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="bidiProtocolPermissions.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\bidiProtocolPermissions.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="bidiSerializer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\bidiSerializer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dTFHM8Y21TDnhC7Ieuivjug">
+        <File Name="firefoxPrefs.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\bidi\third_party\firefoxPrefs.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dX3YJUqHVwVvnZZzgqstKfA">
+        <File Name="android.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\android\android.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dX3YJUqHVwVvnZZzgqstKfA">
+        <File Name="backendAdb.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\android\backendAdb.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="actionRunner.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\actionRunner.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="actions.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\actions.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="codegen.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\codegen.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="context.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\context.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="expectTools.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\expectTools.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="pageAgent.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\pageAgent.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="performTools.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\performTools.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d.nzrEm5WB0nenYgN61LXWw">
+        <File Name="tool.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\server\agent\tool.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dbIbdBko3E6EOWui4t9nYoQ">
+        <File Name="playwrightConnection.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\remote\playwrightConnection.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dbIbdBko3E6EOWui4t9nYoQ">
+        <File Name="playwrightServer.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\remote\playwrightServer.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4SEAcwdoRgnOM6NkYdJw4A">
+        <File Name="serializers.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\protocol\serializers.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4SEAcwdoRgnOM6NkYdJw4A">
+        <File Name="validator.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\protocol\validator.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d4SEAcwdoRgnOM6NkYdJw4A">
+        <File Name="validatorPrimitives.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\protocol\validatorPrimitives.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d16TvHHrLlMDnkdTtTM4Qgg">
+        <File Name="index.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\mcpBundleImpl\index.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="bindingsControllerSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\bindingsControllerSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="clockSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\clockSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="injectedScriptSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\injectedScriptSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="pollingRecorderSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\pollingRecorderSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="storageScriptSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\storageScriptSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="utilityScriptSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\utilityScriptSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dKZH1PDOUsXHC_CO1Hzd9ng">
+        <File Name="webSocketMockSource.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\generated\webSocketMockSource.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="android.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\android.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="api.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\api.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="artifact.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\artifact.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="browser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\browser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="browserContext.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\browserContext.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="browserType.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\browserType.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="cdpSession.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\cdpSession.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="channelOwner.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\channelOwner.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="clientHelper.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\clientHelper.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="clientInstrumentation.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\clientInstrumentation.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="clientStackTrace.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\clientStackTrace.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="clock.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\clock.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="connection.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\connection.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="consoleMessage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\consoleMessage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="coverage.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\coverage.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="dialog.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\dialog.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="download.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\download.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="electron.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\electron.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="elementHandle.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\elementHandle.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="errors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\errors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="eventEmitter.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\eventEmitter.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="events.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\events.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="fetch.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\fetch.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="fileChooser.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\fileChooser.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="fileUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\fileUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="frame.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\frame.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="harRouter.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\harRouter.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="input.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\input.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="jsHandle.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\jsHandle.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="jsonPipe.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\jsonPipe.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="localUtils.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\localUtils.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="locator.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\locator.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="network.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\network.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="page.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\page.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="pageAgent.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\pageAgent.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="platform.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\platform.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="playwright.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\playwright.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="selectors.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\selectors.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="stream.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\stream.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="timeoutSettings.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\timeoutSettings.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="tracing.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\tracing.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="types.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\types.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="video.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\video.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="waiter.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\waiter.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="webError.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\webError.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="webSocket.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\webSocket.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="worker.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\worker.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="d_eJpkDqoq2yCTA75x85fdw">
+        <File Name="writableStream.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\client\writableStream.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dlAKNHU.JC51wAyLTPHxcpw">
+        <File Name="driver.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\cli\driver.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dlAKNHU.JC51wAyLTPHxcpw">
+        <File Name="program.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\cli\program.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dlAKNHU.JC51wAyLTPHxcpw">
+        <File Name="programWithTestStub.js" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\lib\cli\programWithTestStub.js" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="install_media_pack.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\install_media_pack.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="install_webkit_wsl.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\install_webkit_wsl.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_chrome_beta_linux.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_chrome_beta_linux.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_chrome_beta_mac.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_chrome_beta_mac.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_chrome_beta_win.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_chrome_beta_win.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_chrome_stable_linux.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_chrome_stable_linux.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_chrome_stable_mac.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_chrome_stable_mac.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_chrome_stable_win.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_chrome_stable_win.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_beta_linux.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_beta_linux.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_beta_mac.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_beta_mac.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_beta_win.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_beta_win.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_dev_linux.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_dev_linux.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_dev_mac.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_dev_mac.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_dev_win.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_dev_win.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_stable_linux.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_stable_linux.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_stable_mac.sh" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_stable_mac.sh" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dYBkB7IQLwgTCpV_6HOdL2g">
+        <File Name="reinstall_msedge_stable_win.ps1" Source="$(var.appDir)\resources\app.asar.unpacked\node_modules\playwright-core\bin\reinstall_msedge_stable_win.ps1" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="af.pak" Source="$(var.appDir)\locales\af.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="am.pak" Source="$(var.appDir)\locales\am.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ar.pak" Source="$(var.appDir)\locales\ar.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="bg.pak" Source="$(var.appDir)\locales\bg.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="bn.pak" Source="$(var.appDir)\locales\bn.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ca.pak" Source="$(var.appDir)\locales\ca.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="cs.pak" Source="$(var.appDir)\locales\cs.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="da.pak" Source="$(var.appDir)\locales\da.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="de.pak" Source="$(var.appDir)\locales\de.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="el.pak" Source="$(var.appDir)\locales\el.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="en-GB.pak" Source="$(var.appDir)\locales\en-GB.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="en-US.pak" Source="$(var.appDir)\locales\en-US.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="es-419.pak" Source="$(var.appDir)\locales\es-419.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="es.pak" Source="$(var.appDir)\locales\es.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="et.pak" Source="$(var.appDir)\locales\et.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="fa.pak" Source="$(var.appDir)\locales\fa.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="fi.pak" Source="$(var.appDir)\locales\fi.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="fil.pak" Source="$(var.appDir)\locales\fil.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="fr.pak" Source="$(var.appDir)\locales\fr.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="gu.pak" Source="$(var.appDir)\locales\gu.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="he.pak" Source="$(var.appDir)\locales\he.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="hi.pak" Source="$(var.appDir)\locales\hi.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="hr.pak" Source="$(var.appDir)\locales\hr.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="hu.pak" Source="$(var.appDir)\locales\hu.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="id.pak" Source="$(var.appDir)\locales\id.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="it.pak" Source="$(var.appDir)\locales\it.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ja.pak" Source="$(var.appDir)\locales\ja.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="kn.pak" Source="$(var.appDir)\locales\kn.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ko.pak" Source="$(var.appDir)\locales\ko.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="lt.pak" Source="$(var.appDir)\locales\lt.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="lv.pak" Source="$(var.appDir)\locales\lv.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ml.pak" Source="$(var.appDir)\locales\ml.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="mr.pak" Source="$(var.appDir)\locales\mr.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ms.pak" Source="$(var.appDir)\locales\ms.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="nb.pak" Source="$(var.appDir)\locales\nb.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="nl.pak" Source="$(var.appDir)\locales\nl.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="pl.pak" Source="$(var.appDir)\locales\pl.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="pt-BR.pak" Source="$(var.appDir)\locales\pt-BR.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="pt-PT.pak" Source="$(var.appDir)\locales\pt-PT.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ro.pak" Source="$(var.appDir)\locales\ro.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ru.pak" Source="$(var.appDir)\locales\ru.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="sk.pak" Source="$(var.appDir)\locales\sk.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="sl.pak" Source="$(var.appDir)\locales\sl.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="sr.pak" Source="$(var.appDir)\locales\sr.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="sv.pak" Source="$(var.appDir)\locales\sv.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="sw.pak" Source="$(var.appDir)\locales\sw.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ta.pak" Source="$(var.appDir)\locales\ta.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="te.pak" Source="$(var.appDir)\locales\te.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="th.pak" Source="$(var.appDir)\locales\th.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="tr.pak" Source="$(var.appDir)\locales\tr.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="uk.pak" Source="$(var.appDir)\locales\uk.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="ur.pak" Source="$(var.appDir)\locales\ur.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="vi.pak" Source="$(var.appDir)\locales\vi.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="zh-CN.pak" Source="$(var.appDir)\locales\zh-CN.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+      <Component Directory="dXnSQeeWu218k5_DQODW_Hw">
+        <File Name="zh-TW.pak" Source="$(var.appDir)\locales\zh-TW.pak" ReadOnly="yes" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Product>
+</Wix>

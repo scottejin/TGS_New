@@ -7,23 +7,9 @@ A desktop prototype that:
 - Shows a live countdown (time remaining / time until next period)
 - Allows manual refresh
 
----
-
-## Validation Status
-
-`npm run test:fetch` was executed successfully on this machine and returned:
-
-- `ok: true`
-- `finalUrl: https://mytgs.fireflycloud.net.au/dashboard`
-- `periodsToday: 7`
-
-This confirms the timetable fetch flow is working with your authenticated profile.
-
----
-
 ## Setup & Run Instructions
 
-### 0) Install Dependencies (First Run Only)
+### 1) Install Dependencies (First Run Only)
 
 ```powershell
 cd C:\Users\alber\.openclaw\workspace\mytgs-desktop-prototype
