@@ -1,0 +1,16 @@
+{
+  "name": "mytgs-desktop-prototype",
+  "version": "0.1.0",
+  "description": "Desktop prototype for live myTGS period countdown",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test:fetch": "node src/test_fetch.js"
+  },
+  "dependencies": {
+    "playwright-core": "^1.55.0"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0"
+  }
+}

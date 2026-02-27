@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MYTGS Desktop Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>MYTGS Live Clock (Prototype)</h1>
+      <div id="meta"></div>
+    </header>
+
+    <section class="controls">
+      <button id="btnRefresh">Refresh timetable</button>
+      <button id="btnLogin">Open login window</button>
+      <button id="btnLoginDone">I finished login</button>
+    </section>
+
+    <section class="card">
+      <h2>Status</h2>
+      <div id="statusMain" class="big">Loading...</div>
+      <div id="statusSub" class="muted"></div>
+    </section>
+
+    <section class="card">
+      <h2>Today</h2>
+      <ul id="schedule"></ul>
+    </section>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
